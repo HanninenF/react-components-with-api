@@ -1,12 +1,15 @@
-import "./App.scss";
+import { useState } from "react";
+import { AllTypes } from "./types/types";
 import { SearchBar } from "./Widgets/SearchBar/SearchBar";
+import { MovieMiniCard } from "./Widgets/MovieMiniCard/MovieMiniCard";
 
-function App() {
+export function App() {
+  const [movies, setMovies] = useState<AllTypes.Search[] | null>(null);
+
   return (
     <>
-      <SearchBar />
+      <SearchBar setMovies={setMovies} />
+      <MovieMiniCard movies={movies} />
     </>
   );
 }
-
-export default App;

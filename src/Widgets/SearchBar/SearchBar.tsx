@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { API_KEY } from "../../keys/apiKey";
 import "./SearchBar.scss";
+import { AllTypes } from "../../types/types";
 
-export const SearchBar = () => {
+type SearchBarProps = {
+  setMovies: React.Dispatch<React.SetStateAction<AllTypes.Search[] | null>>;
+};
+
+export const SearchBar = ({ setMovies: setMovies }: SearchBarProps) => {
   const [inputValue, setInputValue] = useState("");
   const [searchQuery, setSearchQuery] = useState("");
-  const [name, setName] = useState("");
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(() => e.target.value);
   };
@@ -14,6 +19,7 @@ export const SearchBar = () => {
     e.preventDefault();
     if (!inputValue.trim()) return; // Förhindra tom sökning
     setSearchQuery(inputValue); // Uppdaterar sökningen och triggar useEffect
+    setInputValue("");
   };
 
   useEffect(() => {
@@ -23,13 +29,13 @@ export const SearchBar = () => {
 
     const fetchData = async () => {
       const result = await fetch(movieUrl);
-      const data = await result.json();
+      const data = (await result.json()) as AllTypes.Root;
       console.log(data);
-      setName(data.Search[0].Title);
+      data.Search?.length > 0 && setMovies(data.Search);
     };
     fetchData();
     /* return () => {}; */
-  }, [searchQuery]);
+  }, [searchQuery, setMovies]);
   return (
     <>
       <select name="" id="">
@@ -37,11 +43,15 @@ export const SearchBar = () => {
       </select>
       <form onSubmit={handleSubmit}>
         <label htmlFor="searchField">
-          <input name="searchField" type="text" onChange={handleChange} />
+          <input
+            name="searchField"
+            type="text"
+            value={inputValue}
+            onChange={handleChange}
+          />
         </label>
         <button></button>
       </form>
-      <p>{name}</p>
     </>
   );
 };
