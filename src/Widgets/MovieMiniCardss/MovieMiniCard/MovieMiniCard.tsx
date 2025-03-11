@@ -1,4 +1,4 @@
-import { AllTypes } from "../../types/types";
+import { AllTypes } from "../../../types/types";
 import "./MovieMiniCard.scss";
 
 type MovieMiniCardProps = {

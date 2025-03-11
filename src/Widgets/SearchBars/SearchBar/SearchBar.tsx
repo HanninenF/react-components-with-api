@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { API_KEY } from "../../keys/apiKey";
+import { API_KEY } from "../../../keys/apiKey";
 import "./SearchBar.scss";
-import { AllTypes } from "../../types/types";
+import { AllTypes } from "../../../types/types";
 
 type SearchBarProps = {
   setMovies: React.Dispatch<React.SetStateAction<AllTypes.Search[] | null>>;

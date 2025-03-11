@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type SearchBarProps = {
   setSearchQuery: React.Dispatch<React.SetStateAction<string>>;
@@ -17,6 +17,10 @@ export const SearchBar = ({ setSearchQuery }: SearchBarProps) => {
     setSearchQuery(searchBarInputValue);
     setSearchBarInputValue("");
   };
+
+  useEffect(() => {
+    console.log("searchBarInputValue: ", searchBarInputValue);
+  }, [searchBarInputValue]);
 
   return (
     <>
